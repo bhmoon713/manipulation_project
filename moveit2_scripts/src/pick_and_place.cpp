@@ -101,7 +101,7 @@ public:
     RCLCPP_INFO(LOGGER, "Going to Pregrasp Position...");
     // setup the goal pose target
     RCLCPP_INFO(LOGGER, "Preparing Goal Pose Trajectory...");
-    setup_goal_pose_target(+0.337, -0.020, +0.250, -1.000, +0.000, +0.000,
+    setup_goal_pose_target(+0.34, -0.022, +0.250, -1.000, +0.000, +0.000,
                            +0.000);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Goal Pose Trajectory...");
@@ -135,7 +135,7 @@ public:
     RCLCPP_INFO(LOGGER, "Closing Gripper...");
     // setup the gripper joint value
     RCLCPP_INFO(LOGGER, "Preparing Gripper Value...");
-    setup_joint_value_gripper(+0.70);
+    setup_joint_value_gripper(+0.7);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Gripper Action...");
     plan_trajectory_gripper();

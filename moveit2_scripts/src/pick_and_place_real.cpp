@@ -98,7 +98,7 @@ public:
     RCLCPP_INFO(LOGGER, "Going to Pregrasp Position...");
     // setup the goal pose target
     RCLCPP_INFO(LOGGER, "Preparing Goal Pose Trajectory...");
-    setup_goal_pose_target(+0.343, 0.132, +0.250, -1.000, +0.000, +0.000,
+    setup_goal_pose_target(+0.343, +0.132, +0.270, -1.000, +0.000, +0.000,
                            +0.000);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Goal Pose Trajectory...");
@@ -143,7 +143,7 @@ public:
     RCLCPP_INFO(LOGGER, "Retreating...");
     // setup the cartesian target
     RCLCPP_INFO(LOGGER, "Preparing Cartesian Trajectory...");
-    setup_waypoints_target(+0.000, +0.000, +0.060);
+    setup_waypoints_target(+0.000, +0.000, +0.20);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Cartesian Trajectory...");
     plan_trajectory_cartesian();

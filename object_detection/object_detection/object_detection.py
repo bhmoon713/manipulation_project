@@ -14,7 +14,6 @@ class ObjectDetection(Node):
         super().__init__('object_detection_node')
         self.pc_sub = self.create_subscription(
             PointCloud2,
-            # '/deepmind_robot1_depth_sensor/points',
             '/wrist_rgbd_depth_sensor/points',
             self.callback,
             10)

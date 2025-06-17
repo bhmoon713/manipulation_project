@@ -8,7 +8,6 @@ Panels:
         - /Status1
         - /RobotModel1
         - /MarkerArray1
-        - /MarkerArray1/Status1
         - /PointCloud21
         - /TF1
       Splitter Ratio: 0.5
@@ -63,161 +62,20 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /robot_description
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        base_link_inertia:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        flange:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        forearm_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        ft_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        robotiq_85_base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_left_finger_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_left_finger_tip_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_left_inner_knuckle_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_left_knuckle_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_right_finger_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_right_finger_tip_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_right_inner_knuckle_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        robotiq_85_right_knuckle_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        shoulder_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        tool0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        upper_arm_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        world:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_1_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wrist_2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wrist_3_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wrist_rgbd_camera_depth_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_rgbd_camera_depth_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_rgbd_camera_fisheye_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_rgbd_camera_fisheye_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_rgbd_camera_left_ir_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_rgbd_camera_left_ir_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_rgbd_camera_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        wrist_rgbd_camera_right_ir_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        wrist_rgbd_camera_right_ir_optical_frame:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
       Mass Properties:
         Inertia: false
         Mass: false
       Name: RobotModel
       TF Prefix: ""
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Class: rviz_default_plugins/MarkerArray
       Enabled: true
@@ -366,10 +224,10 @@ Visualization Manager:
                                     {}
                           ft_frame:
                             {}
+            wrist_rgbd_camera_depth_optical_frame:
+              {}
             wrist_rgbd_camera_link:
               wrist_rgbd_camera_depth_frame:
-                wrist_rgbd_camera_depth_optical_frame:
-                  {}
                 wrist_rgbd_camera_fisheye_frame:
                   wrist_rgbd_camera_fisheye_optical_frame:
                     {}
@@ -427,25 +285,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 1.5674995183944702
+      Distance: 1.2725188732147217
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.006202441640198231
-        Y: 0.3372236490249634
-        Z: 0.08965086191892624
+        X: 0.3177083134651184
+        Y: 0.06719271838665009
+        Z: 0.12303150445222855
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4803979992866516
+      Pitch: 0.5603979825973511
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 6.158584117889404
+      Yaw: 0.7103967666625977
     Saved: ~
 Window Geometry:
   Displays:

@@ -18,19 +18,22 @@ def generate_launch_description():
             package='object_detection',
             executable='object_detection',
             name='object_detection',
-            output='screen'
+            output='screen',
+            parameters=[{'use_sim_time': True}]
         ),
         Node(
             package='object_detection',
             executable='static_transform_publisher',
             name='static_transform_publisher',
-            output='screen'
+            output='screen',
+            parameters=[{'use_sim_time': True}]
         ),
         Node(
             package='rviz2',
             executable='rviz2',
             name='rviz2',
             arguments=['-d', rviz_config_path],
-            output='screen'
+            output='screen',
+            parameters=[{'use_sim_time': True}]
         )
     ])

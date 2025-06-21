@@ -16,10 +16,17 @@ class StaticTransformPublisher:
         static_transform_stamped.transform.translation.x = 0.338  
         static_transform_stamped.transform.translation.y = 0.450  
         static_transform_stamped.transform.translation.z = 0.100  
+
+        # static_transform_stamped.transform.rotation.x = 0.183  
+        # static_transform_stamped.transform.rotation.y = 0.183   
+        # static_transform_stamped.transform.rotation.z = -0.683
+        # static_transform_stamped.transform.rotation.w = 0.683  
+
         static_transform_stamped.transform.rotation.x = 0.0  
         static_transform_stamped.transform.rotation.y = 0.866  
         static_transform_stamped.transform.rotation.z = -0.500  
         static_transform_stamped.transform.rotation.w = 0.0  
+
         # Publish the static transform
         self.broadcaster.sendTransform(static_transform_stamped)
 

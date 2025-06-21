@@ -3,6 +3,7 @@
 
 #include <moveit_msgs/msg/display_robot_state.hpp>
 #include <moveit_msgs/msg/display_trajectory.hpp>
+#include "custom_msgs/msg/detected_objects.hpp"  
 
 #include <chrono>
 #include <cmath>
@@ -33,11 +34,27 @@ public:
     executor_.add_node(move_group_node_);
     std::thread([this]() { this->executor_.spin(); }).detach();
 
+
+    // === Add this: Subscribe to object detection ===
+    object_sub_ = move_group_node_->create_subscription<custom_msgs::msg::DetectedObjects>(
+        "/object_detected", 10,
+        [this](const custom_msgs::msg::DetectedObjects::SharedPtr msg) {
+            target_x_ = msg->position.x;
+            target_y_ = msg->position.y;
+            target_z_ = msg->position.z + msg->height / 2.0;
+
+            RCLCPP_INFO(LOGGER, "Updated target from topic: x=%.3f, y=%.3f, z=%.3f",
+                        target_x_, target_y_, target_z_);
+        });
+
     // initialize move_group interfaces
     move_group_robot_ = std::make_shared<MoveGroupInterface>(
         move_group_node_, PLANNING_GROUP_ROBOT);
     move_group_gripper_ = std::make_shared<MoveGroupInterface>(
         move_group_node_, PLANNING_GROUP_GRIPPER);
+    move_group_gripper_->setMaxVelocityScalingFactor(0.2);       // 20% of max speed
+    move_group_gripper_->setMaxAccelerationScalingFactor(0.2);   // 20% of max accel
+
 
     // get initial state of robot and gripper
     joint_model_group_robot_ =
@@ -98,8 +115,9 @@ public:
     RCLCPP_INFO(LOGGER, "Going to Pregrasp Position...");
     // setup the goal pose target
     RCLCPP_INFO(LOGGER, "Preparing Goal Pose Trajectory...");
-    setup_goal_pose_target(+0.343, +0.132, +0.270, -1.000, +0.000, +0.000,
-                           +0.000);
+    // setup_goal_pose_target(+0.34, -0.022, +0.250, -1.000, +0.000, +0.000,
+    //                        +0.000);
+    setup_goal_pose_target(target_x_, target_y_, +0.250, -1.000, 0.000, 0.000, 0.000);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Goal Pose Trajectory...");
     plan_trajectory_kinematics();
@@ -132,7 +150,7 @@ public:
     RCLCPP_INFO(LOGGER, "Closing Gripper...");
     // setup the gripper joint value
     RCLCPP_INFO(LOGGER, "Preparing Gripper Value...");
-    setup_joint_value_gripper(+0.70);
+    setup_joint_value_gripper(+0.7);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Gripper Action...");
     plan_trajectory_gripper();
@@ -143,7 +161,7 @@ public:
     RCLCPP_INFO(LOGGER, "Retreating...");
     // setup the cartesian target
     RCLCPP_INFO(LOGGER, "Preparing Cartesian Trajectory...");
-    setup_waypoints_target(+0.000, +0.000, +0.10);
+    setup_waypoints_target(+0.000, +0.000, +0.100);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Cartesian Trajectory...");
     plan_trajectory_cartesian();
@@ -232,6 +250,14 @@ private:
   RobotStatePtr current_state_gripper_;
   Plan gripper_trajectory_plan_;
   bool plan_success_gripper_ = false;
+
+  // Target position for object detection
+  double target_x_ = 0.34;
+  double target_y_ = -0.022;
+  double target_z_ = 0.25;
+
+  // Subscriber to object detection
+  rclcpp::Subscription<custom_msgs::msg::DetectedObjects>::SharedPtr object_sub_;
 
   // declare cartesian trajectory planning variables for robot
   std::vector<Pose> cartesian_waypoints_;

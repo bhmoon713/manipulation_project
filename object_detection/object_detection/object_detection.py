@@ -45,9 +45,15 @@ class ObjectDetection(Node):
             cloud = self.from_ros_msg(msg)
 
             # Filtered cloud for surface detection
-            filtered_cloud_plane = self.filter_cloud(cloud, max_x_dist=2.15, min_height=0.35, max_height=0.4)
+            # filtered_cloud_plane = self.filter_cloud(cloud, max_x_dist=2.15, min_height=0.35, max_height=0.4)
             # Filtered cloud for object detection
-            filtered_cloud_objects = self.filter_cloud(cloud, max_x_dist=2.15, min_height=0.4, max_height=1.2)
+            # filtered_cloud_objects = self.filter_cloud(cloud, max_x_dist=2.15, min_height=0.4, max_height=1.2)
+
+            # Filtered cloud for surface detection
+            filtered_cloud_plane = self.filter_cloud(cloud, max_x_dist=0.8, min_height=-0.3, max_height=0.0)
+            # Filtered cloud for object detection
+            filtered_cloud_objects = self.filter_cloud(cloud, max_x_dist=0.8, min_height=-0.3, max_height=0.5)
+
 
             # Segmentation: Plane extraction
             plane_indices, plane_coefficients, plane_cloud = self.extract_plane(filtered_cloud_plane)
@@ -168,9 +174,13 @@ class ObjectDetection(Node):
         """Extracts clusters corresponding to benches from the point cloud"""
         tree = cloud.make_kdtree()
         ec = cloud.make_EuclideanClusterExtraction()
+        # ec.set_ClusterTolerance(0.02)
+        # ec.set_MinClusterSize(100)
+        # ec.set_MaxClusterSize(80000)
         ec.set_ClusterTolerance(0.02)
-        ec.set_MinClusterSize(100)
-        ec.set_MaxClusterSize(80000)
+        ec.set_MinClusterSize(1000)
+        ec.set_MaxClusterSize(500000)
+
         ec.set_SearchMethod(tree)
 
         # Extract clusters

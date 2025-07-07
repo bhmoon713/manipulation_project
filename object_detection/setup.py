@@ -27,7 +27,8 @@ setup(
         'console_scripts': [
         'surface_detection = object_detection.surface_detection:main',
         'static_transform_publisher = object_detection.static_transform_publisher:main',
-        'object_detection = object_detection.object_detection:main'
+        'object_detection = object_detection.object_detection:main',
+        'object_detection_real = object_detection.object_detection_real:main',
         ],
     },
 )

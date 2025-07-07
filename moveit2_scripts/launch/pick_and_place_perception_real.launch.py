@@ -11,13 +11,13 @@ def generate_launch_description():
     rviz_config_path = os.path.join(
         get_package_share_directory('object_detection'),
         'rviz',
-        'sensor_data.rviz'
+        'sensor_data_real.rviz'
     )
     # First two nodes
-    object_detection_node = Node(
+    object_detection_real_node = Node(
         package='object_detection',
-        executable='object_detection',
-        name='object_detection',
+        executable='object_detection_real',
+        name='object_detection_real',
         output='screen',
         parameters=[{'use_sim_time': False}]
     )
@@ -30,7 +30,7 @@ def generate_launch_description():
         parameters=[{'use_sim_time': False}]
     )
 
-    rviz_node = Node(
+    rviz_real_node = Node(
             package='rviz2',
             executable='rviz2',
             name='rviz2',
@@ -41,7 +41,7 @@ def generate_launch_description():
 
     # Final node (delayed)
     moveit_cpp_node = Node(
-        name="pick_and_place",
+        name="pick_and_place_real",
         package="moveit2_scripts",
         executable="pick_and_place_perception_real",
         output="screen",
@@ -60,8 +60,8 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        object_detection_node,
+        object_detection_real_node,
         static_transform_publisher_node,
-        rviz_node,
+        rviz_real_node,
         delayed_moveit_node
     ])

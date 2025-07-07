@@ -40,7 +40,7 @@ public:
         "/object_detected", 10,
         [this](const custom_msgs::msg::DetectedObjects::SharedPtr msg) {
             target_x_ = msg->position.x + 0.012;
-            target_y_ = msg->position.y + 0.0;
+            target_y_ = msg->position.y - 0.010;
             target_z_ = msg->position.z + msg->height / 2.0;
 
             RCLCPP_INFO(LOGGER, "Updated target from topic: x=%.3f, y=%.3f, z=%.3f",
@@ -151,7 +151,7 @@ public:
     RCLCPP_INFO(LOGGER, "Closing Gripper...");
     // setup the gripper joint value
     RCLCPP_INFO(LOGGER, "Preparing Gripper Value...");
-    setup_joint_value_gripper(+0.67); //0.7
+    setup_joint_value_gripper(+0.65); //0.7
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Gripper Action...");
     plan_trajectory_gripper();
@@ -361,8 +361,8 @@ private:
     double current_angle = current_positions[2];
 
     // Number of steps for smooth movement
-    const int steps = 50;
-    const double delay_sec = 0.05;  // 50ms delay between steps
+    const int steps = 25;
+    const double delay_sec = 0.01;  // 50ms delay between steps
     double step_size = (target_angle - current_angle) / steps;
 
     rclcpp::Rate rate(1.0 / delay_sec);  // Rate controller for delay

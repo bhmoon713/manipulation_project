@@ -40,7 +40,7 @@ public:
         "/object_detected", 10,
         [this](const custom_msgs::msg::DetectedObjects::SharedPtr msg) {
             target_x_ = msg->position.x + 0.012;
-            target_y_ = msg->position.y + 0.012;
+            target_y_ = msg->position.y + 0.0;
             target_z_ = msg->position.z + msg->height / 2.0;
 
             RCLCPP_INFO(LOGGER, "Updated target from topic: x=%.3f, y=%.3f, z=%.3f",
@@ -140,7 +140,7 @@ public:
     RCLCPP_INFO(LOGGER, "Approaching...");
     // setup the cartesian target
     RCLCPP_INFO(LOGGER, "Preparing Cartesian Trajectory...");
-    setup_waypoints_target(+0.000, +0.000, -0.080);
+    setup_waypoints_target(+0.000, +0.000, -0.060);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Cartesian Trajectory...");
     plan_trajectory_cartesian();
@@ -151,7 +151,7 @@ public:
     RCLCPP_INFO(LOGGER, "Closing Gripper...");
     // setup the gripper joint value
     RCLCPP_INFO(LOGGER, "Preparing Gripper Value...");
-    setup_joint_value_gripper(+0.65); //0.7
+    setup_joint_value_gripper(+0.66); //0.7
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Gripper Action...");
     plan_trajectory_gripper();
@@ -182,11 +182,8 @@ public:
         joint_group_positions_robot_[4], joint_group_positions_robot_[5]);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Joint Value Trajectory...");
-    rclcpp::sleep_for(std::chrono::milliseconds(2000));  // Wait 0.5s for state update
-    move_group_robot_->setStartStateToCurrentState();
-
     plan_trajectory_kinematics();
-    RCLCPP_INFO(LOGGER, "Executing Joint Value Trajectory..."); 
+    RCLCPP_INFO(LOGGER, "Executing Joint Value Trajectory...");
     execute_trajectory_kinematics();
 
     // open the gripper
@@ -346,38 +343,12 @@ private:
     cartesian_waypoints_.clear();
   }
 
-//   void setup_joint_value_gripper(float angle) {
-//     // set the joint values for each joint of gripper
-//     // based on values provided
-//     joint_group_positions_gripper_[2] = angle;
-//     move_group_gripper_->setJointValueTarget(joint_group_positions_gripper_);
-//   }
-
-  void setup_joint_value_gripper(float target_angle) {
-    // Get the current joint positions
-    std::vector<double> current_positions = move_group_gripper_->getCurrentJointValues();
-
-    // Extract the current angle of the target joint (index 2 in your case)
-    double current_angle = current_positions[2];
-
-    // Number of steps for smooth movement
-    const int steps = 50;
-    const double delay_sec = 0.05;  // 50ms delay between steps
-    double step_size = (target_angle - current_angle) / steps;
-
-    rclcpp::Rate rate(1.0 / delay_sec);  // Rate controller for delay
-
-    for (int i = 1; i <= steps; ++i) {
-        double intermediate_angle = current_angle + step_size * i;
-
-        joint_group_positions_gripper_[2] = intermediate_angle;
-        move_group_gripper_->setJointValueTarget(joint_group_positions_gripper_);
-        move_group_gripper_->move();  // Block until each motion finishes
-
-        rate.sleep();  // Optional: wait a bit between each command
-    }
-    }
-
+  void setup_joint_value_gripper(float angle) {
+    // set the joint values for each joint of gripper
+    // based on values provided
+    joint_group_positions_gripper_[2] = angle;
+    move_group_gripper_->setJointValueTarget(joint_group_positions_gripper_);
+  }
 
   void setup_named_pose_gripper(std::string pose_name) {
     // set the joint values for each joint of gripper

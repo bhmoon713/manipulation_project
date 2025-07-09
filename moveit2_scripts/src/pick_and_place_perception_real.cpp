@@ -41,7 +41,8 @@ public:
         [this](const custom_msgs::msg::DetectedObjects::SharedPtr msg) {
             target_x_ = msg->position.x + 0.012;
             target_y_ = msg->position.y - 0.010;
-            target_z_ = msg->position.z + msg->height / 2.0;
+            // target_z_ = msg->position.z + msg->height / 2.0;
+            target_z_ = 0.08;
 
             RCLCPP_INFO(LOGGER, "Updated target from topic: x=%.3f, y=%.3f, z=%.3f",
                         target_x_, target_y_, target_z_);

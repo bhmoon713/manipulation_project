@@ -14,8 +14,8 @@ class ObjectDetection(Node):
         super().__init__('object_detection_node')
         self.pc_sub = self.create_subscription(
             PointCloud2,
-            # '/wrist_rgbd_depth_sensor/points',
-            '/camera/depth/color/points',
+            # '/wrist_rgbd_depth_sensor/points',  #simulation
+            '/camera/depth/color/points',  # real
             self.callback,
             10)
         self.surface_pub = self.create_publisher(
@@ -53,7 +53,7 @@ class ObjectDetection(Node):
             # Filtered cloud for surface detection
             filtered_cloud_plane = self.filter_cloud(cloud, max_x_dist=0.8, min_height=-0.3, max_height=0.0)
             # Filtered cloud for object detection
-            filtered_cloud_objects = self.filter_cloud(cloud, max_x_dist=0.8, min_height=0.0, max_height=1.0)
+            filtered_cloud_objects = self.filter_cloud(cloud, max_x_dist=0.8, min_height=-0.1, max_height=0.5)
 
 
             # Segmentation: Plane extraction

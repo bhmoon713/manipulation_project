@@ -12,7 +12,7 @@ class StaticTransformPublisher:
         static_transform_stamped.header.stamp = self.node.get_clock().now().to_msg()
         static_transform_stamped.header.frame_id = 'base_link'
         # static_transform_stamped.child_frame_id = 'wrist_rgbd_camera_depth_optical_frame'
-        static_transform_stamped.child_frame_id = 'camera_depth_optical_frame'
+        static_transform_stamped.child_frame_id = 'camera_link'
         
         static_transform_stamped.transform.translation.x = 0.338  
         static_transform_stamped.transform.translation.y = 0.450  

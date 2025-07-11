@@ -21,13 +21,13 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': False}]
         ),
-        Node(
-            package='object_detection',
-            executable='static_transform_publisher_real',
-            name='static_transform_publisher_real',
-            output='screen',
-            parameters=[{'use_sim_time': False}]
-        ),
+        # Node(
+        #     package='object_detection',
+        #     executable='static_transform_publisher_real',
+        #     name='static_transform_publisher_real',
+        #     output='screen',
+        #     parameters=[{'use_sim_time': False}]
+        # ),
         Node(
             package='rviz2',
             executable='rviz2',

@@ -22,13 +22,13 @@ def generate_launch_description():
         parameters=[{'use_sim_time': False}]
     )
 
-    static_transform_publisher_node = Node(
-        package='object_detection',
-        executable='static_transform_publisher',
-        name='static_transform_publisher',
-        output='screen',
-        parameters=[{'use_sim_time': False}]
-    )
+    # static_transform_publisher_node = Node(
+    #     package='object_detection',
+    #     executable='static_transform_publisher',
+    #     name='static_transform_publisher',
+    #     output='screen',
+    #     parameters=[{'use_sim_time': False}]
+    # )
 
     rviz_real_node = Node(
             package='rviz2',
@@ -61,7 +61,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         object_detection_real_node,
-        static_transform_publisher_node,
+        # static_transform_publisher_node,
         rviz_real_node,
-        delayed_moveit_node
+        moveit_cpp_node,
+        # delayed_moveit_node
     ])
